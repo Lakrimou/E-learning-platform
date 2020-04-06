@@ -3,12 +3,13 @@
 namespace App\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Symfony\Component\Security\Core\User\UserInteface;
 
 /**
  * Class User
  * @MongoDB\Document
  */
-class User
+class User implements UserInterface
 {
     /**
      * @MongoDB\Id
@@ -25,20 +26,14 @@ class User
      */
     protected $email;
 
+    private $roles = [];
+
     /**
      * @return mixed
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
     }
 
     /**
@@ -114,6 +109,17 @@ class User
      * @MongoDB\Field(type="date")
      */
     protected $dateCreation;
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
+    }
 
 
 }
