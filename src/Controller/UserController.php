@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Document\User;
+use App\Document\Userss;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,7 +16,7 @@ class UserController extends AbstractController
      */
     public function register(DocumentManager $dm)
     {
-        $user = new User();
+        $user = new Userss();
         $user->setName('MOhamed');
         $user->setEmail('akrem.boussaha@gmail.com');
         $user->setPassword(sha1('akrem'));
@@ -30,7 +30,7 @@ class UserController extends AbstractController
      */
     public function getUsers(DocumentManager $dm)
     {
-        $users = $dm->getRepository(User::class)->findAll();
+        $users = $dm->getRepository(Userss::class)->findAll();
         dump($users);
         die;
     }

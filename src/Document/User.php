@@ -2,8 +2,8 @@
 
 namespace App\Document;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Symfony\Component\Security\Core\User\UserInteface;
 
 /**
  * Class User
@@ -14,101 +14,49 @@ class User implements UserInterface
     /**
      * @MongoDB\Id
      */
-    protected $id;
+    private $id;
 
     /**
      * @MongoDB\Field(type="string")
      */
-    protected $name;
+    private $email;
 
     /**
      * @MongoDB\Field(type="string")
      */
-    protected $email;
-
     private $roles = [];
 
     /**
-     * @return mixed
+     * @MongoDB\Field(type="string")
      */
+    private $password;
+
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name): void
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email): void
+    public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
      */
-    public function getPassword()
+    public function getUsername(): string
     {
-        return $this->password;
+        return (string) $this->email;
     }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password): void
-    {
-        $this->password = $password;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDateCreation()
-    {
-        return $this->dateCreation;
-    }
-
-    /**
-     * @param mixed $dateCreation
-     */
-    public function setDateCreation($dateCreation): void
-    {
-        $this->dateCreation = $dateCreation;
-    }
-
-    /**
-     * @MongoDB\Field(type="string")
-     */
-    protected $password;
-
-    /**
-     * @MongoDB\Field(type="date")
-     */
-    protected $dateCreation;
 
     /**
      * @see UserInterface
@@ -118,8 +66,46 @@ class User implements UserInterface
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
+
         return array_unique($roles);
     }
 
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
 }
