@@ -7,7 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * Class User
- * @MongoDB\Document
+ * @MongoDB\Document(repositoryClass=UserRepository::class)
  */
 class User implements UserInterface
 {
