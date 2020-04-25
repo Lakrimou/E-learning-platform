@@ -7,12 +7,12 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * Class User
- * @MongoDB\Document(repositoryClass=UserRepository::class)
+ * @MongoDB\Document(repositoryClass="App\Repository\UserRepository")
  */
 class User implements UserInterface
 {
     /**
-     * @MongoDB\Id
+     * @MongoDB\Id(strategy="INCREMENT", type="integer")
      */
     private $id;
 
@@ -22,7 +22,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @MongoDB\Field(type="collection")
      */
     private $roles = [];
 
@@ -30,6 +30,11 @@ class User implements UserInterface
      * @MongoDB\Field(type="string")
      */
     private $password;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $firstName;
 
     public function getId()
     {
@@ -107,5 +112,17 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
     }
 }

@@ -25,5 +25,9 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    App\DataFixtures\MongoDB\:
+        resource: '%kernel.project_dir%/src/DataFixtures/MongoDB'
+        tags: ['doctrine.fixture.odm.mongodb']
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
