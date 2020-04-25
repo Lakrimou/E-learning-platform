@@ -31,6 +31,34 @@ class UserFixtures extends AppFixtures
             return $user;
         });
 
+        $this->createMany(12, 'student_users', function($i) {
+            $user = new User();
+            $user->setEmail(sprintf('student%d@admin.com', $i));
+            $user->setFirstName($this->faker->firstName);
+            $user->setRoles(['ROLE_STUDENT']);
+
+            $user->setPassword($this->passwordEncoder->encodePassword(
+                $user,
+                'student'
+            ));
+
+            return $user;
+        });
+
+        $this->createMany(5, 'teacher_users', function($i) {
+            $user = new User();
+            $user->setEmail(sprintf('teacher%d@admin.com', $i));
+            $user->setFirstName($this->faker->firstName);
+            $user->setRoles(['ROLE_TEACHER']);
+
+            $user->setPassword($this->passwordEncoder->encodePassword(
+                $user,
+                'teacher'
+            ));
+
+            return $user;
+        });
+
         $manager->flush();
     }
 }

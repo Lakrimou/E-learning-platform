@@ -14,4 +14,9 @@ class UserRepository extends DocumentRepository
         $classMetaData = $dm->getClassMetadata(User::class);
         parent::__construct($dm, $uow, $classMetaData);
     }
+
+    public function getAllUsers($page, $limit)
+    {
+        return $this->createQueryBuilder()->skip($page)->limit($limit)->getQuery()->execute();
+    }
 }

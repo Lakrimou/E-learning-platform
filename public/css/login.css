@@ -8,6 +8,8 @@ body {
     padding: 15px;
     margin: auto;
     margin-top: 50px;
+    background: #e2e5ea;
+    border-radius: 14px;
 }
 
 .form-signin .checkbox {
