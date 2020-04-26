@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>City School | {% block title %}{% endblock title %}</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="{{ asset('bundles/back/plugins/summernote/summernote-bs4.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    {% block stylesheets %}
+
+    {% endblock %}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -118,6 +121,9 @@
                 </div>
             </li>
             <!-- Notifications Dropdown Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i></a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-bell"></i>
@@ -143,11 +149,6 @@
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_logout') }}" role="button">
-                    <i class="fas fa-sign-out"></i>
-                </a>
             </li>
         </ul>
     </nav>
@@ -229,7 +230,7 @@
 <!-- ChartJS -->
 <script src="{{ asset('bundles/back/plugins/chart.js/Chart.min.js') }}"></script>
 <!-- Sparkline -->
-<script src="{{ asset('bundles/back/plugins/sparklines/sparkline.js') }}"></script>
+{#<script src="{{ asset('bundles/back/plugins/sparklines/sparkline.js') }}"></script>#}
 <!-- JQVMap -->
 <script src="{{ asset('bundles/back/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
 <script src="{{ asset('bundles/back/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
@@ -247,8 +248,11 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('bundles/back/dist/js/adminlte.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('bundles/back/dist/js/pages/dashboard.js') }}"></script>
+{#<script src="{{ asset('bundles/back/dist/js/pages/dashboard.js') }}"></script>#}
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('bundles/back/dist/js/demo.js') }}"></script>
+{% block javascripts %}
+
+{% endblock %}
 </body>
 </html>
