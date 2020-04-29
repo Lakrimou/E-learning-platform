@@ -5,13 +5,13 @@ This project was created by Akrem Boussaha and Karim Mezni as part of our disser
 
 Before installation make sure that PHP7.4, and mongodb are installed.
 
-#Requirements
+**Requirements
 
 **PHP7.4**
 
 **MongoDB**
 
-#Installation
+**Installation
 
 lunch those commands:
 
