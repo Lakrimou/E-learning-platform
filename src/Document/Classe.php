@@ -2,12 +2,14 @@
 
 namespace App\Document;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * Class Classe
  * @MongoDB\Document(repositoryClass="App\Repository\ClasseRepository")
+ * @ApiResource()
  */
 class Classe
 {
@@ -149,7 +151,7 @@ class Classe
         return $this;
     }
 
-    public function getEnabled(): ?Boolean
+    public function getEnabled(): ?bool
     {
         return $this->enabled;
     }

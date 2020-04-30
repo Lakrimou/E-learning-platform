@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        
+    </title>
+    <style>
+        .header a {
+            text-decoration: none;
+            color: #fff;
+            padding: 5px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div style="background-color: #1e73be">
+        <h1 style="text-align: center">City School</h1>
+        <div class="header" style="display: flex; justify-content: space-around; color: #fff">
+            <div>
+                <a href="{{ path('app_login') }}">Se Connecter</a>
+            </div>
+            <div>
+                <a href="{{ path('app_register') }}">Inscription</a>
+            </div>
+        </div>
+        <img src="{{ asset('images/logo-1.png') }}" alt="logo" width="160" height="67">
+    </div>
+</body>
+</html>
