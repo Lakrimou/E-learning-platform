@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Document\Classe;
 use App\Document\User;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
@@ -39,6 +40,18 @@ class AdminController extends AbstractController
         $users = $dm->getRepository(User::class)->getAllUsers($page, $limit);
         return $this->render("admin/users.html.twig", [
             'users' => $users
+        ]);
+    }
+
+    /**
+     * @Route("/classes/{page}", name="admin_classes")
+     */
+    public function classeManagement(DocumentManager $dm, $page=0)
+    {
+        $limit = 10;
+        $classes = $dm->getRepository(Classe::class)->getAllClasses($page, $limit);
+        return $this->render("admin/classes.html.twig", [
+            'classes' => $classes
         ]);
     }
 }
