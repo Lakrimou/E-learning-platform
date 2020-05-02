@@ -6,11 +6,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * Class Classe
- * @MongoDB\Document(repositoryClass="App\Repository\ClasseRepository")
+ * Class Course
+ * @MongoDB\Document(repositoryClass="App\Repository\CourseRepository")
  * @ApiResource()
  */
-class Classe
+class Course
 {
     /**
      * @MongoDB\Id(strategy="INCREMENT", type="integer")
@@ -37,8 +37,10 @@ class Classe
      */
     private $endDate;
 
-
-    private $classType;
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $type;
 
     /**
      * @MongoDB\Field(type="integer")
@@ -54,6 +56,41 @@ class Classe
      * @MongoDB\Field(type="boolean")
      */
     private $enabled;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $category;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $grade;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $stream;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $supervisor;
+
+    /**
+     * @MongoDB\Field(type="integer")
+     */
+    private $hoursPerWeek;
+
+    /**
+     * @MongoDB\Field(type="integer")
+     */
+    private $totalWeek;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $note;
 
     public function __construct()
     {
@@ -114,14 +151,14 @@ class Classe
         return $this;
     }
 
-    public function getClassType(): ?string
+    public function getType(): ?string
     {
-        return $this->classType;
+        return $this->type;
     }
 
-    public function setClassType($classType): self
+    public function setType($type): self
     {
-        $this->classType = $classType;
+        $this->type = $type;
 
         return $this;
     }
@@ -161,6 +198,93 @@ class Classe
 
         return $this;
     }
+
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory($category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getGrade(): ?string
+    {
+        return $this->grade;
+    }
+
+    public function setGrade($grade): self
+    {
+        $this->grade = $grade;
+
+        return $this;
+    }
+
+    public function getStream(): ?string
+    {
+        return $this->stream;
+    }
+
+    public function setStream($stream): self
+    {
+        $this->stream = $stream;
+
+        return $this;
+    }
+
+
+    public function getSupervisor(): ?string
+    {
+        return $this->supervisor;
+    }
+
+    public function setSupervisor($supervisor): self
+    {
+        $this->supervisor = $supervisor;
+
+        return $this;
+    }
+
+    public function getHoursPerWeek(): int
+    {
+        return $this->hoursPerWeek;
+    }
+
+    public function setHoursPerWeek($hoursPerWeek): self
+    {
+        $this->hoursPerWeek = $hoursPerWeek;
+
+        return $this;
+    }
+
+    public function getTotalWeek(): int
+    {
+        return $this->totalWeek;
+    }
+
+    public function setTotalWeek($totalWeek): self
+    {
+        $this->totalWeek = $totalWeek;
+
+        return $this;
+    }
+
+    public function getNote(): ?string
+    {
+        return $this->note;
+    }
+
+    public function setNote($note): self
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
 
 
 }

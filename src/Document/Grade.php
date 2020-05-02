@@ -6,11 +6,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * Class Classe
- * @MongoDB\Document(repositoryClass="App\Repository\ClasseRepository")
+ * Class Grade
+ * @MongoDB\Document(repositoryClass="App\Repository\GradeRepository")
  * @ApiResource()
  */
-class Classe
+class Grade
 {
     /**
      * @MongoDB\Id(strategy="INCREMENT", type="integer")
@@ -37,29 +37,25 @@ class Classe
      */
     private $endDate;
 
-
-    private $classType;
-
-    /**
-     * @MongoDB\Field(type="integer")
-     */
-    private $studentLimit;
-
     /**
      * @MongoDB\Field(type="date")
      */
     private $created;
 
     /**
+     * @MongoDB\Field(type="string")
+     */
+    private $language;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $stream;
+
+    /**
      * @MongoDB\Field(type="boolean")
      */
     private $enabled;
-
-    public function __construct()
-    {
-        $this->created = new \DateTime();
-        $this->enabled = false;
-    }
 
     public function getId()
     {
@@ -114,30 +110,6 @@ class Classe
         return $this;
     }
 
-    public function getClassType(): ?string
-    {
-        return $this->classType;
-    }
-
-    public function setClassType($classType): self
-    {
-        $this->classType = $classType;
-
-        return $this;
-    }
-
-    public function getStudentLimit(): ?int
-    {
-        return $this->studentLimit;
-    }
-
-    public function setStudentLimit($studentLimit): self
-    {
-        $this->studentLimit = $studentLimit;
-
-        return $this;
-    }
-
     public function getCreated(): ?\DateTime
     {
         return $this->created;
@@ -162,5 +134,28 @@ class Classe
         return $this;
     }
 
+    public function getLanguage(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage($language): self
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    public function getStream(): ?string
+    {
+        return $this->language;
+    }
+
+    public function setStream($stream): self
+    {
+        $this->stream = $stream;
+
+        return $this;
+    }
 
 }

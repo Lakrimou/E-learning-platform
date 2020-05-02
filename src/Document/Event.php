@@ -6,11 +6,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * Class Classe
- * @MongoDB\Document(repositoryClass="App\Repository\ClasseRepository")
+ * Class Event
+ * @MongoDB\Document(repositoryClass="App\Repository\EventRepository")
  * @ApiResource()
  */
-class Classe
+class Event
 {
     /**
      * @MongoDB\Id(strategy="INCREMENT", type="integer")
@@ -37,14 +37,6 @@ class Classe
      */
     private $endDate;
 
-
-    private $classType;
-
-    /**
-     * @MongoDB\Field(type="integer")
-     */
-    private $studentLimit;
-
     /**
      * @MongoDB\Field(type="date")
      */
@@ -53,13 +45,17 @@ class Classe
     /**
      * @MongoDB\Field(type="boolean")
      */
+    private $visible;
+
+    /**
+     * @MongoDB\Field(type="boolean")
+     */
     private $enabled;
 
-    public function __construct()
-    {
-        $this->created = new \DateTime();
-        $this->enabled = false;
-    }
+    /**
+     * @MongoDB\Field(type="boolean")
+     */
+    private $isAnnouncement;
 
     public function getId()
     {
@@ -114,30 +110,6 @@ class Classe
         return $this;
     }
 
-    public function getClassType(): ?string
-    {
-        return $this->classType;
-    }
-
-    public function setClassType($classType): self
-    {
-        $this->classType = $classType;
-
-        return $this;
-    }
-
-    public function getStudentLimit(): ?int
-    {
-        return $this->studentLimit;
-    }
-
-    public function setStudentLimit($studentLimit): self
-    {
-        $this->studentLimit = $studentLimit;
-
-        return $this;
-    }
-
     public function getCreated(): ?\DateTime
     {
         return $this->created;
@@ -162,5 +134,28 @@ class Classe
         return $this;
     }
 
+    public function getVisible(): ?bool
+    {
+        return $this->visible;
+    }
+
+    public function setVisible($visible): self
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    public function getIsAnnouncement(): ?bool
+    {
+        return $this->isAnnouncement;
+    }
+
+    public function setIsAnnouncement($isAnnouncement): self
+    {
+        $this->isAnnouncement = $isAnnouncement;
+
+        return $this;
+    }
 
 }
