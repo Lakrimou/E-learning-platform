@@ -7,16 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * Class Grade
- * @MongoDB\Document(repositoryClass="App\Repository\GradeRepository")
+ * Class Classroom
+ * @MongoDB\Document(repositoryClass="App\Repository\ClassroomRepository")
  * @ApiResource()
  */
-class Grade
+class Classroom
 {
-    const REQUIRED = 'required';
-    const OPTIONAL = 'optional';
-    const ENTRANCE_EXAM = 'entrance exam';
-
     /**
      * @MongoDB\Id(strategy="INCREMENT", type="integer")
      */
@@ -33,14 +29,14 @@ class Grade
     private $description;
 
     /**
-     * @MongoDB\Field(type="date")
+     * @MongoDB\Field(type="string")
      */
-    private $startDate;
+    private $classType;
 
     /**
-     * @MongoDB\Field(type="date")
+     * @MongoDB\Field(type="integer")
      */
-    private $endDate;
+    private $studentLimit;
 
     /**
      * @MongoDB\Field(type="date")
@@ -48,35 +44,19 @@ class Grade
     private $created;
 
     /**
-     * @MongoDB\Field(type="string")
-     */
-    private $language;
-
-    /**
-     * @MongoDB\ReferenceMany(targetDocument=Grade::class, inversedBy="grades")
-     */
-    private $streams;
-
-    /**
      * @MongoDB\Field(type="boolean")
      */
     private $enabled;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument=Course::class, mappedBy="grades")
-     */
-    private $courses;
-
-    /**
-     * @MongoDB\ReferenceMany(targetDocument=Classe::class, mappedBy="classes")
+     * @MongoDB\ReferenceMany(targetDocument=Classroom::class, inversedBy="classrooms")
      */
     private $classes;
 
     public function __construct()
     {
-        $this->streams = new ArrayCollection();
-        $this->courses = new ArrayCollection();
         $this->classes = new ArrayCollection();
+        $this->created = new \DateTime();
     }
 
     public function getId()
@@ -108,26 +88,26 @@ class Grade
         return $this;
     }
 
-    public function getStartDate(): \DateTime
+    public function getClassType(): ?string
     {
-        return $this->startDate;
+        return $this->classType;
     }
 
-    public function setStartDate($startDate): self
+    public function setClassType($classType): self
     {
-        $this->startDate = $startDate;
+        $this->classType = $classType;
 
         return $this;
     }
 
-    public function getEndDate(): ?\DateTime
+    public function getStudentLimit(): ?int
     {
-        return $this->endDate;
+        return $this->studentLimit;
     }
 
-    public function setEndDate($endDate): self
+    public function setStudentLimit($studentLimit): self
     {
-        $this->endDate = $endDate;
+        $this->studentLimit = $studentLimit;
 
         return $this;
     }
@@ -156,48 +136,6 @@ class Grade
         return $this;
     }
 
-    public function getLanguage(): ?string
-    {
-        return $this->language;
-    }
-
-    public function setLanguage($language): self
-    {
-        $this->language = $language;
-
-        return $this;
-    }
-
-    public function getStreams()
-    {
-        return $this->streams;
-    }
-
-    public function addStream(Stream $stream)
-    {
-        $this->streams[] = $stream;
-    }
-
-    public function removeStream(Stream $stream)
-    {
-        $this->streams->removeElement($stream);
-    }
-
-    public function getCourses()
-    {
-        return $this->courses;
-    }
-
-    public function addCourse(Course $course)
-    {
-        $this->courses[] = $course;
-    }
-
-    public function removeCourse(Course $course)
-    {
-        $this->courses->removeElement($course);
-    }
-
     public function getClasses()
     {
         return $this->classes;
@@ -212,5 +150,4 @@ class Grade
     {
         $this->classes->removeElement($classe);
     }
-
 }

@@ -3,6 +3,7 @@
 namespace App\Document;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
@@ -43,9 +44,26 @@ class Stream
     private $supervisor;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @MongoDB\ReferenceMany(targetDocument=Grade::class, mappedBy="streams")
      */
-    private $grade;
+    private $grades;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument=Course::class, mappedBy="streams")
+     */
+    private $courses;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument=Classe::class, mappedBy="classes")
+     */
+    private $classes;
+
+    public function __construct()
+    {
+        $this->grades = new ArrayCollection();
+        $this->courses = new ArrayCollection();
+        $this->classes = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -112,16 +130,49 @@ class Stream
         return $this;
     }
 
-    public function getGrade(): ?string
+    public function getGrades()
     {
-        return $this->grade;
+        return $this->grades;
     }
 
-    public function setGrade($grade): self
+    public function addGrade(Grade $grade)
     {
-        $this->grade = $grade;
+        $this->grades[] = $grade;
+    }
 
-        return $this;
+    public function removeGrade(Grade $grade)
+    {
+        $this->grades->removeElement($grade);
+    }
+
+    public function getCourses()
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(Course $course)
+    {
+        $this->courses[] = $course;
+    }
+
+    public function removeCourse(Course $course)
+    {
+        $this->courses->removeElement($course);
+    }
+
+    public function getClasses()
+    {
+        return $this->classes;
+    }
+
+    public function addClasse(Classe $classe)
+    {
+        $this->classes[] = $classe;
+    }
+
+    public function removeClasse(Classe $classe)
+    {
+        $this->classes->removeElement($classe);
     }
 
 }

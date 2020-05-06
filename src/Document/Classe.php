@@ -3,7 +3,9 @@
 namespace App\Document;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Class Classe
@@ -46,6 +48,46 @@ class Classe
     private $studentLimit;
 
     /**
+     * @MongoDB\Field(type="integer")
+     */
+    private $absenceLimit;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument=Grade::class, inversedBy="classes")
+     */
+    private $grade;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument=Stream::class, inversedBy="classes")
+     */
+    private $stream;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument=Classroom::class, mappedBy="classes")
+     */
+    private $classrooms;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument=Course::class, mappedBy="classes")
+     */
+    private $courses;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument=User::class, mappedBy="studentClasses")
+     */
+    private $students;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument=User::class, mappedBy="teacherClasses")
+     */
+    private $teachers;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument=User::class, inversedBy="classes")
+     */
+    private $supervisor;
+
+    /**
      * @MongoDB\Field(type="date")
      */
     private $created;
@@ -58,7 +100,10 @@ class Classe
     public function __construct()
     {
         $this->created = new \DateTime();
-        $this->enabled = false;
+        $this->classrooms = new ArrayCollection();
+        $this->courses = new ArrayCollection();
+        $this->students = new ArrayCollection();
+        $this->teachers = new ArrayCollection();
     }
 
     public function getId()
@@ -138,6 +183,18 @@ class Classe
         return $this;
     }
 
+    public function getAbsenceLimit(): ?int
+    {
+        return $this->studentLimit;
+    }
+
+    public function setAbsenceLimit($absenceLimit): self
+    {
+        $this->absenceLimit = $absenceLimit;
+
+        return $this;
+    }
+
     public function getCreated(): ?\DateTime
     {
         return $this->created;
@@ -162,5 +219,102 @@ class Classe
         return $this;
     }
 
+    public function getGrade(): ?Grade
+    {
+        return $this->grade;
+    }
 
+    public function setGrade(Grade $grade): self
+    {
+        $this->grade = $grade;
+
+        return $this;
+    }
+
+    public function getStream(): ?Stream
+    {
+        return $this->stream;
+    }
+
+    public function setStream(Stream $stream): self
+    {
+        $this->stream = $stream;
+
+        return $this;
+    }
+
+    public function getClassrooms()
+    {
+        return $this->classrooms;
+    }
+
+    public function addClassroom(Classroom $classroom)
+    {
+        $this->classrooms[] = $classroom;
+    }
+
+    public function removeClassroom(Classroom $classroom)
+    {
+        $this->classrooms->removeElement($classroom);
+    }
+
+    public function getCourses()
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(Course $course)
+    {
+        $this->courses[] = $course;
+    }
+
+    public function removeCourse(Course $course)
+    {
+        $this->courses->removeElement($course);
+    }
+
+    public function getStudents()
+    {
+        return $this->students;
+    }
+
+    public function addStudent(User $student)
+    {
+        if (count($this->getStudents()) < $this->getStudentLimit()) {
+            $this->students[] = $student;
+        }else {
+            throw new Exception("student's limit was achieved !");
+        }
+    }
+
+    public function removeStudent(User $student)
+    {
+        $this->students->removeElement($student);
+    }
+
+    public function getTeachers()
+    {
+        return $this->teachers;
+    }
+
+    public function addTeacher(User $teacher)
+    {
+        $this->teachers[] = $teacher;
+    }
+
+    public function removeTeacher(User $teacher)
+    {
+        $this->teachers->removeElement($teacher);
+    }
+
+    public function getSupervisor()
+    {
+        return $this->supervisor;
+    }
+    public function setSupervisor(User $supervisor)
+    {
+        $this->supervisor = $supervisor;
+
+        return $this;
+    }
 }

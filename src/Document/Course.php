@@ -3,6 +3,7 @@
 namespace App\Document;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
@@ -63,17 +64,22 @@ class Course
     private $category;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @MongoDB\ReferenceMany(targetDocument=Grade::class, inversedBy="courses")
      */
-    private $grade;
+    private $grades;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @MongoDB\ReferenceMany(targetDocument=Grade::class, inversedBy="courses")
      */
-    private $stream;
+    private $streams;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @MongoDB\ReferenceMany(targetDocument=Classe::class, inversedBy="courses")
+     */
+    private $classes;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument=User::class, mappedBy="courses")
      */
     private $supervisor;
 
@@ -96,6 +102,9 @@ class Course
     {
         $this->created = new \DateTime();
         $this->enabled = false;
+        $this->grades = new ArrayCollection();
+        $this->streams = new ArrayCollection();
+        $this->classes = new ArrayCollection();
     }
 
     public function getId()
@@ -212,37 +221,58 @@ class Course
         return $this;
     }
 
-    public function getGrade(): ?string
+    public function getGrades()
     {
-        return $this->grade;
+        return $this->grades;
     }
 
-    public function setGrade($grade): self
+    public function addGrade(Grade $grade)
     {
-        $this->grade = $grade;
-
-        return $this;
+        $this->grades[] = $grade;
     }
 
-    public function getStream(): ?string
+    public function removeGrade(Grade $grade)
     {
-        return $this->stream;
+        $this->grades->removeElement($grade);
     }
 
-    public function setStream($stream): self
+    public function getStreams()
     {
-        $this->stream = $stream;
+        return $this->streams;
+    }
 
-        return $this;
+    public function addStream(Stream $stream)
+    {
+        $this->streams[] = $stream;
+    }
+
+    public function removeStream(Stream $stream)
+    {
+        $this->streams->removeElement($stream);
+    }
+
+    public function getClasses()
+    {
+        return $this->classes;
+    }
+
+    public function addClasse(Classe $classe)
+    {
+        $this->classes[] = $classe;
+    }
+
+    public function removeClasse(Classe $classe)
+    {
+        $this->classes->removeElement($classe);
     }
 
 
-    public function getSupervisor(): ?string
+    public function getSupervisor()
     {
         return $this->supervisor;
     }
 
-    public function setSupervisor($supervisor): self
+    public function setSupervisor(User $supervisor): self
     {
         $this->supervisor = $supervisor;
 

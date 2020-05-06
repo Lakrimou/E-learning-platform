@@ -3,6 +3,7 @@
 namespace App\Document;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
@@ -37,6 +38,39 @@ class User implements UserInterface
      * @MongoDB\Field(type="string")
      */
     private $firstName;
+
+    /**
+     * @MongoDB\Field(type="string")
+     */
+    private $lastName;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument=Classe::class, inversedBy="students")
+     */
+    private $classesStudent;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument=Classe::class, inversedBy="teachers")
+     */
+    private $classesTeacher;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument=Classe::class, inversedBy="supervisor")
+     */
+    private $classesSupervisor;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument=Course::class, inversedBy="supervisor")
+     */
+    private $courses;
+
+    public function __construct()
+    {
+        $this->classesStudent = new ArrayCollection();
+        $this->classesTeacher = new ArrayCollection();
+        $this->classesSupervisor = new ArrayCollection();
+        $this->courses = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -126,5 +160,77 @@ class User implements UserInterface
         $this->firstName = $firstName;
 
         return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getClassesStudent()
+    {
+        return $this->$classesStudent;
+    }
+
+    public function addClasseStudent(Classe $classeStudent)
+    {
+            $this->classesStudent[] = $classeStudent;
+    }
+
+    public function removeClasseStudent(Classe $classeStudent)
+    {
+        $this->classesStudent->removeElement($classeStudent);
+    }
+
+    public function getClassesTeacher()
+    {
+        return $this->classesTeacher;
+    }
+
+    public function addClasseTeacher(Classe $classeTeacher)
+    {
+        $this->classesTeacher[] = $classeTeacher;
+    }
+
+    public function removeClasseTeacher(Classe $classeTeacher)
+    {
+        $this->classesTeacher->removeElement($classeTeacher);
+    }
+
+    public function getClassesSupervisor()
+    {
+        return $this->classesSupervisor;
+    }
+
+    public function addClasseSupervisor(Classe $classeSupervisor)
+    {
+        $this->classesSupervisor[] = $classeSupervisor;
+    }
+
+    public function removeClasseSupervisor(Classe $classeSupervisor)
+    {
+        $this->classesSupervisor->removeElement($classeSupervisor);
+    }
+
+    public function getCourses()
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(Course $course)
+    {
+        $this->courses[] = $course;
+    }
+
+    public function removeCourse(Course $course)
+    {
+        $this->courses->removeElement($course);
     }
 }
