@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Document\Classe;
+use App\Document\Event;
 use App\Document\User;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
@@ -51,6 +52,18 @@ class AdminController extends AbstractController
         $limit = 10;
         $classes = $dm->getRepository(Classe::class)->getAllClasses($page, $limit);
         return $this->render("admin/classes.html.twig", [
+            'classes' => $classes
+        ]);
+    }
+
+    /**
+     * @Route("/events/{page}", name="admin_events")
+     */
+    public function eventManagement(DocumentManager $dm, $page=0)
+    {
+        $limit = 10;
+        $classes = $dm->getRepository(Event::class)->getAllEvents($page, $limit);
+        return $this->render("admin/event.html.twig", [
             'classes' => $classes
         ]);
     }

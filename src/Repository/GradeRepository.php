@@ -2,16 +2,16 @@
 
 namespace App\Repository;
 
-use App\Document\Event;
+use App\Document\Grade;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
 
-class EventRepository extends DocumentRepository
+class GradeRepository extends DocumentRepository
 {
     public function __construct(DocumentManager $dm)
     {
         $uow = $dm->getUnitOfWork();
-        $classMetaData = $dm->getClassMetadata(Event::class);
+        $classMetaData = $dm->getClassMetadata(Grade::class);
         parent::__construct($dm, $uow, $classMetaData);
     }
 
