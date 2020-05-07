@@ -39,10 +39,9 @@ class GradeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $grade = $form->getData();
             $dm->persist($grade);
             $dm->flush();
-            $this->addFlash('info', 'le grade a été bien ajouté avec succès !');
+            $this->addFlash('success', 'le grade a été bien ajouté avec succès !');
             return $this->redirectToRoute('grades');
         }
 
