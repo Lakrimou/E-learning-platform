@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Document\Classe;
+use App\Document\Stream;
 use App\Document\User;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
@@ -16,5 +16,15 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class StreamController extends AbstractController
 {
-
+    /**
+     * @Route("/admin/streams/{page}", name="streams")
+     */
+    public function listStreams(DocumentManager $dm, $page = 0)
+    {
+        $limit = 10;
+        $streams = $dm->getRepository(Stream::class)->getAllStreams($page, $limit);
+        return $this->render("streams/list_streams.html.twig", [
+            'streams' => $streams
+        ]);
+    }
 }

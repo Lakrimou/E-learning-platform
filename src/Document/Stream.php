@@ -60,6 +60,7 @@ class Stream
 
     public function __construct()
     {
+        $this->created = new \DateTime();
         $this->grades = new ArrayCollection();
         $this->courses = new ArrayCollection();
         $this->classes = new ArrayCollection();

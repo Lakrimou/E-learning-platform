@@ -74,6 +74,7 @@ class Grade
 
     public function __construct()
     {
+        $this->created = new \DateTime();
         $this->streams = new ArrayCollection();
         $this->courses = new ArrayCollection();
         $this->classes = new ArrayCollection();
@@ -108,7 +109,7 @@ class Grade
         return $this;
     }
 
-    public function getStartDate(): \DateTime
+    public function getStartDate(): ?\DateTime
     {
         return $this->startDate;
     }

@@ -15,7 +15,7 @@ class GradeRepository extends DocumentRepository
         parent::__construct($dm, $uow, $classMetaData);
     }
 
-    public function getAllEvents($page, $limit)
+    public function getAllGrades($page, $limit)
     {
         return $this->createQueryBuilder()->skip($page)->limit($limit)->getQuery()->execute();
     }

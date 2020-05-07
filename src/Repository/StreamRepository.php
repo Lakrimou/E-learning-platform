@@ -15,7 +15,7 @@ class StreamRepository extends DocumentRepository
         parent::__construct($dm, $uow, $classMetaData);
     }
 
-    public function getAllClasses($page, $limit)
+    public function getAllStreams($page, $limit)
     {
         return $this->createQueryBuilder()->skip($page)->limit($limit)->getQuery()->execute();
     }
