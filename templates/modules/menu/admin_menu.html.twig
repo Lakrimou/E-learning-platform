@@ -27,16 +27,33 @@
             </li>
         </ul>
     </li>
-    <li class="nav-item has-treeview menu-open">
-        <a href="{{ path('streams') }}" class="nav-link active">
+    <li class="nav-item has-treeview">
+        <a href="{{ path('streams') }}" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
                 Spécialités
             </p>
+            <i class="right fas fa-angle-left"></i>
         </a>
+        <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="{{ path('grades') }}" class="nav-link">
+                    <i class="far fa-users nav-icon"></i>
+                    <p>Liste des spécialités</p>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="{{ path('new_grade') }}" class="nav-link">
+                    <i class="far fa-users nav-icon"></i>
+                    <p>Ajouter spécialité</p>
+                </a>
+            </li>
+        </ul>
     </li>
     <li class="nav-item has-treeview menu-open">
-        <a href="{{ path('grades') }}" class="nav-link active">
+        <a href="{{ path('grades') }}" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
                 Grades
@@ -60,7 +77,7 @@
         </ul>
     </li>
     <li class="nav-item has-treeview menu-open">
-        <a href="{{ path('admin_classes') }}" class="nav-link active">
+        <a href="{{ path('admin_classes') }}" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
                 Classes
@@ -68,7 +85,7 @@
         </a>
     </li>
     <li class="nav-item has-treeview menu-open">
-        <a href="{{ path('courses') }}" class="nav-link active">
+        <a href="{{ path('courses') }}" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
                 Cours

@@ -64,12 +64,18 @@ class User implements UserInterface
      */
     private $courses;
 
+    /**
+     * @MongoDB\ReferenceMany(targetDocument=Stream::class, inversedBy="supervisorStream")
+     */
+    private $streamsSupervisor;
+
     public function __construct()
     {
         $this->classesStudent = new ArrayCollection();
         $this->classesTeacher = new ArrayCollection();
         $this->classesSupervisor = new ArrayCollection();
         $this->courses = new ArrayCollection();
+        $this->streamsSupervisor = new ArrayCollection();
     }
 
     public function getId()
@@ -232,5 +238,20 @@ class User implements UserInterface
     public function removeCourse(Course $course)
     {
         $this->courses->removeElement($course);
+    }
+
+    public function getStreamsSupervisor()
+    {
+        return $this->streamsSupervisor;
+    }
+
+    public function addStreamSupervisor(Stream $streamSupervisor)
+    {
+        $this->streamsSupervisor[] = $streamSupervisor;
+    }
+
+    public function removeStreamSupervisor(Stream $streamSupervisor)
+    {
+        $this->streamsSupervisor->removeElement($streamSupervisor);
     }
 }

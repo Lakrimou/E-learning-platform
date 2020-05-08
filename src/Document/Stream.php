@@ -39,9 +39,9 @@ class Stream
     private $enabled;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @MongoDB\ReferenceOne(targetDocument=User::class, mappedBy="streamsSupervisor")
      */
-    private $supervisor;
+    private $supervisorStream;
 
     /**
      * @MongoDB\ReferenceMany(targetDocument=Grade::class, mappedBy="streams")
