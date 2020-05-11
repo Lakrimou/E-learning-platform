@@ -73,17 +73,17 @@ class Classe
     private $courses;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument=User::class, mappedBy="studentClasses")
+     * @MongoDB\ReferenceMany(targetDocument=User::class, mappedBy="classesStudent")
      */
     private $students;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument=User::class, mappedBy="teacherClasses")
+     * @MongoDB\ReferenceMany(targetDocument=User::class, mappedBy="classesTeacher")
      */
     private $teachers;
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument=User::class, inversedBy="classes")
+     * @MongoDB\ReferenceOne(targetDocument=User::class, inversedBy="classesSupervisor")
      */
     private $supervisor;
 

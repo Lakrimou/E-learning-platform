@@ -182,7 +182,7 @@ class User implements UserInterface
 
     public function getClassesStudent()
     {
-        return $this->$classesStudent;
+        return $this->classesStudent;
     }
 
     public function addClasseStudent(Classe $classeStudent)
