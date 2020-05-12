@@ -176,4 +176,16 @@ class Stream
         $this->classes->removeElement($classe);
     }
 
+    public function getSupervisorStream(): ?User
+    {
+        return $this->supervisorStream;
+    }
+
+    public function setSupervisorStream(User $supervisorStream): self
+    {
+        $this->supervisorStream = $supervisorStream;
+
+        return $this;
+    }
+
 }
