@@ -101,7 +101,6 @@ class Course
     public function __construct()
     {
         $this->created = new \DateTime();
-        $this->enabled = false;
         $this->grades = new ArrayCollection();
         $this->streams = new ArrayCollection();
         $this->classes = new ArrayCollection();
@@ -136,7 +135,7 @@ class Course
         return $this;
     }
 
-    public function getStartDate(): \DateTime
+    public function getStartDate()
     {
         return $this->startDate;
     }
@@ -279,7 +278,7 @@ class Course
         return $this;
     }
 
-    public function getHoursPerWeek(): int
+    public function getHoursPerWeek(): ?int
     {
         return $this->hoursPerWeek;
     }
@@ -291,7 +290,7 @@ class Course
         return $this;
     }
 
-    public function getTotalWeek(): int
+    public function getTotalWeek(): ?int
     {
         return $this->totalWeek;
     }
