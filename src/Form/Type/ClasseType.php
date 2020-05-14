@@ -2,6 +2,7 @@
 
 namespace App\Form\Type;
 
+use App\Document\Stream;
 use App\Form\Type\DataTransformer\DateTimeTransformer;
 use Doctrine\Bundle\MongoDBBundle\Form\Type\DocumentType;
 use Symfony\Component\Form\AbstractType;
@@ -12,6 +13,9 @@ use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ClasseType extends AbstractType
@@ -61,17 +65,43 @@ class ClasseType extends AbstractType
             ->add('enabled', RadioType::class)
             ->add('stream', DocumentType::class, [
                 'class'        => 'App\Document\Stream',
-                'choice_label' => 'name',
-            ])
-            ->add('grade', DocumentType::class, [
-                'class'        => 'App\Document\Grade',
-                'choice_label' => 'name',
+                'placeholder'   => '',
+                /*'choice_label' => 'name',*/
             ])
             ->add('supervisor', DocumentType::class, [
                 'class'        => 'App\Document\User',
                 'choice_label' => 'username',
             ])
         ;
+
+        $formModifier = function (FormInterface $form, Stream $stream = null) {
+            $grades = null === $stream ? [] : $stream->getGrades();
+
+            $form->add('grade', DocumentType::class, [
+                'class' => 'App\Document\Grade',
+                'placeholder' => '',
+                'choices' => $grades,
+            ]);
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+
+                $data = $event->getData();
+
+                $formModifier($event->getForm(), $data->getStream());
+            }
+        );
+
+        $builder->get('stream')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                $stream = $event->getForm()->getData();
+                $formModifier($event->getForm()->getParent(), $stream);
+            }
+        );
+
         $builder->get('startDate')
             ->addModelTransformer($this->dateTimeTransformer);
         $builder->get('endDate')

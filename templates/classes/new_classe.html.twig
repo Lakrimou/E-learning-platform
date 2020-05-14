@@ -121,4 +121,29 @@
             sideBySide: true
         });
     </script>
+    <script>
+        var $stream = $('#classe_stream');
+        // When sport gets selected ...
+        $stream.change(function() {
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the selected sport value.
+            var data = {};
+            data[$stream.attr('name')] = $stream.val();
+            // Submit data via AJAX to the form's action path.
+            $.ajax({
+                url : $form.attr('action'),
+                type: $form.attr('method'),
+                data : data,
+                success: function(html) {
+                    // Replace current position field ...
+                    $('#classe_grade').replaceWith(
+                        // ... with the returned one from the AJAX response.
+                        $(html).find('#classe_grade')
+                    );
+                    // Position field now displays the appropriate positions.
+                }
+            });
+        });
+    </script>
 {% endblock %}

@@ -80,6 +80,11 @@ class Grade
         $this->classes = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function getId()
     {
         return $this->id;
