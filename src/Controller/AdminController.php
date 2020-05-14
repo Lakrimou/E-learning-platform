@@ -45,18 +45,6 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/classes/{page}", name="admin_classes")
-     */
-    public function classeManagement(DocumentManager $dm, $page=0)
-    {
-        $limit = 10;
-        $classes = $dm->getRepository(Classe::class)->getAllClasses($page, $limit);
-        return $this->render("admin/classes.html.twig", [
-            'classes' => $classes
-        ]);
-    }
-
-    /**
      * @Route("/events/{page}", name="admin_events")
      */
     public function eventManagement(DocumentManager $dm, $page=0)
