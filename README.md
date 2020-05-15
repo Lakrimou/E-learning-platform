@@ -17,6 +17,13 @@ lunch those commands:
 
     composer install
     php bin/console doctrine:mongodb:fixtures:load
+    
+# Generate the SSH keys for Api Token authentication:
+
+    $ mkdir -p config/jwt
+    $ openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+    $ openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+    
 # Run the project
 
     sudo php -S 127.0.0.1:8000 -t public
@@ -25,6 +32,7 @@ lunch those commands:
 
     login : admin0@admin.com
     password: admin
+   
     
 # API Documentation WIP
 

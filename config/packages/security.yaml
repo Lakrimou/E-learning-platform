@@ -7,7 +7,7 @@ security:
     providers:
         # used to reload user from session & other features (e.g. switch_user)
         my_mongo_provider:
-            mongodb: {class: App\Document\User, property: username}
+            mongodb: {class: App\Document\User, property: email}
 
     role_hierarchy:
         ROLE_PARENT: [ROLE_PARENT, ROLE_USER]
@@ -16,6 +16,17 @@ security:
         ROLE_ADMIN: [ROLE_ADMIN, ROLE_PARENT, ROLE_TEACHER, ROLE_STUDENT, ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
 
     firewalls:
+        api:
+            pattern: ^/api/
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path:               /api/login_check
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+            guard:
+                authenticators:
+                  - lexik_jwt_authentication.jwt_token_authenticator
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -27,6 +38,7 @@ security:
                     - App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
+            entry_point: App\Security\LoginFormAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -38,4 +50,6 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/profile, roles: ROLE_USER }
