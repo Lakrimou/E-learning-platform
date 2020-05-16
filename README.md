@@ -39,3 +39,5 @@ lunch those commands:
     http://127.0.0.1:8000/api/docs 
     
 # WIP : Work in Progress
+
+commit 7602d0ac83722b01c34005c85a0f7ef89a6b9275 from AWS EC2 instance 
