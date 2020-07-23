@@ -15,7 +15,7 @@ class ClassroomRepository extends DocumentRepository
         parent::__construct($dm, $uow, $classMetaData);
     }
 
-    public function getAllClasses($page, $limit)
+    public function getAllClassrooms($page, $limit)
     {
         return $this->createQueryBuilder()->skip($page)->limit($limit)->getQuery()->execute();
     }

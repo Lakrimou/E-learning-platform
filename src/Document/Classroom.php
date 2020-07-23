@@ -48,14 +48,8 @@ class Classroom
      */
     private $enabled;
 
-    /**
-     * @MongoDB\ReferenceMany(targetDocument=Classroom::class, inversedBy="classrooms")
-     */
-    private $classes;
-
     public function __construct()
     {
-        $this->classes = new ArrayCollection();
         $this->created = new \DateTime();
     }
 
@@ -134,20 +128,5 @@ class Classroom
         $this->enabled = $enabled;
 
         return $this;
-    }
-
-    public function getClasses()
-    {
-        return $this->classes;
-    }
-
-    public function addClasse(Classe $classe)
-    {
-        $this->classes[] = $classe;
-    }
-
-    public function removeClasse(Classe $classe)
-    {
-        $this->classes->removeElement($classe);
     }
 }

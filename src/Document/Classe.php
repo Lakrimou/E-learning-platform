@@ -63,11 +63,6 @@ class Classe
     private $stream;
 
     /**
-     * @MongoDB\ReferenceMany(targetDocument=Classroom::class, mappedBy="classes")
-     */
-    private $classrooms;
-
-    /**
      * @MongoDB\ReferenceMany(targetDocument=Course::class, mappedBy="classes")
      */
     private $courses;
@@ -100,7 +95,6 @@ class Classe
     public function __construct()
     {
         $this->created = new \DateTime();
-        $this->classrooms = new ArrayCollection();
         $this->courses = new ArrayCollection();
         $this->students = new ArrayCollection();
         $this->teachers = new ArrayCollection();
@@ -241,21 +235,6 @@ class Classe
         $this->stream = $stream;
 
         return $this;
-    }
-
-    public function getClassrooms()
-    {
-        return $this->classrooms;
-    }
-
-    public function addClassroom(Classroom $classroom)
-    {
-        $this->classrooms[] = $classroom;
-    }
-
-    public function removeClassroom(Classroom $classroom)
-    {
-        $this->classrooms->removeElement($classroom);
     }
 
     public function getCourses()
