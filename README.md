@@ -16,7 +16,20 @@ Before installation make sure that PHP7.4, and mongodb are installed.
 lunch those commands:
 
     composer install
-    php bin/console doctrine:mongodb:fixtures:load
+    sudo apt-get install php7.4-dev
+    
+Installation of MongoDbDriver
+
+    sudo percl install mongo db
+    sudo nano /etc/php7.4/cli/php.ini
+    
+Include extension=mongodb.so at the bottom of the PHP .ini configuration file, then save it
+
+Restart the apache server
+
+    sudo systemctl restart apache2
+    
+ 
     
 # Generate the SSH keys for Api Token authentication:
 

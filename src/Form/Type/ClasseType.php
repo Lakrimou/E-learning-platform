@@ -5,6 +5,7 @@ namespace App\Form\Type;
 use App\Document\Stream;
 use App\Form\Type\DataTransformer\DateTimeTransformer;
 use Doctrine\Bundle\MongoDBBundle\Form\Type\DocumentType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -68,7 +69,7 @@ class ClasseType extends AbstractType
                 'placeholder'   => '',
                 /*'choice_label' => 'name',*/
             ])
-            ->add('supervisor', DocumentType::class, [
+            ->add('supervisor', EntityType::class, [
                 'class'        => 'App\Document\User',
                 'choice_label' => 'username',
             ])

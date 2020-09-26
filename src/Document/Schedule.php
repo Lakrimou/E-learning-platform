@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Document\Classe;
+use App\Document\Course;
 use App\Repository\ScheduleRepository;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
@@ -28,12 +30,32 @@ class Schedule
     /**
      * @MongoDB\Field(type="boolean")
      */
+    private $semester;
+
+    /**
+     * @MongoDB\Field(type="boolean")
+     */
     private $enabled;
 
     /**
      * @MongoDB\Field(type="string")
      */
     private $name;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument=Classe::class)
+     */
+    private $classe;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument=Course::class)
+     */
+    private $course;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument=User::class)
+     */
+    private $teachers;
 
     public function getId(): ?int
     {
@@ -76,6 +98,18 @@ class Schedule
         return $this;
     }
 
+    public function getSemester(): ?bool
+    {
+        return $this->semester;
+    }
+
+    public function setSemester(bool $semester): self
+    {
+        $this->semester = $semester;
+
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -84,6 +118,30 @@ class Schedule
     public function setName(?string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getClasse(): ?Classe
+    {
+        return $this->classe;
+    }
+
+    public function setClasse(Classe $classe): self
+    {
+        $this->classe = $classe;
+
+        return $this;
+    }
+
+    public function getCourse(): ?Course
+    {
+        return $this->course;
+    }
+
+    public function setCourse(Course $course): self
+    {
+        $this->course = $course;
 
         return $this;
     }
