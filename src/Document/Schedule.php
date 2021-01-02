@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Document;
 
 use App\Document\Classe;
 use App\Document\Course;
