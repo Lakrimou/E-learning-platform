@@ -55,7 +55,12 @@ class Schedule
     /**
      * @MongoDB\ReferenceOne(targetDocument=User::class)
      */
-    private $teachers;
+    private $teacher;
+
+    /**
+     * @MongoDB\ReferenceOne(targetDocument="GlobalSchedule::class")
+     */
+    private $globalSchedule;
 
     public function getId(): ?int
     {
@@ -142,6 +147,30 @@ class Schedule
     public function setCourse(Course $course): self
     {
         $this->course = $course;
+
+        return $this;
+    }
+
+    public function getTeacher(): ?User
+    {
+        return $this->teacher;
+    }
+
+    public function setTeacher(User $teacher): self
+    {
+        $this->teacher = $teacher;
+
+        return $this;
+    }
+
+    public function getGlobalSchedule(): ?GlobalSchedule
+    {
+        return $this->globalSchedule;
+    }
+
+    public function setGlobalSchedule(GlobalSchedule $globalSchedule): self
+    {
+        $this->globalSchedule = $globalSchedule;
 
         return $this;
     }

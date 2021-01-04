@@ -14,12 +14,13 @@ class ScheduleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add("globalSchedule")
             ->add("semester")
             ->add("name")
             ->add("classe")
             ->add("course")
             ->add("course")
-            ->add("teachers")
+            ->add("teacher")
         ;
     }
 
