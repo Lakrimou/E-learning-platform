@@ -7,6 +7,7 @@ use App\Form\Type\ScheduleType;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ScheduleController extends AbstractController
@@ -77,6 +78,9 @@ class ScheduleController extends AbstractController
 
     /**
      * Deletes a schedule document.
+     * @param Request $request
+     * @param Schedule $schedule
+     * @return Response
      * @Route('/admin/{id}/schedule-delete', name='schedule_delete')
      */
     public function deleteAction(Request $request, Schedule $schedule)
@@ -90,7 +94,7 @@ class ScheduleController extends AbstractController
             $em->flush();
         }
 
-        return $this->redirectToRoute('category_index');
+        return $this->redirectToRoute('schedule_list');
     }
 
     /**
