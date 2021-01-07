@@ -33,9 +33,15 @@ class GlobalSchedule
      */
     private $schedules;
 
+    /**
+     * @MongoDB\Field(type="date")
+     */
+    private $created;
+
     public function __construct()
     {
         $this->schedules = new ArrayCollection();
+        $this->created = new \DateTime();
     }
 
     /**

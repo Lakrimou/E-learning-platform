@@ -23,7 +23,6 @@ class ScheduleType extends AbstractType
             ->add("name")
             ->add("classe")
             ->add("course")
-            ->add("course")
             ->add("teacher")
         ;
     }
